@@ -1,0 +1,3 @@
+finding_id,title,severity,risk_score,source_repo,source_system,category,cis_control,nist_category,iso_domain,remediation_owner,status,due_date,sla_status,recommendation,evidence_completeness_score
+SAAS-001,MFA not enforced for admin users,High,80,saas-security-posture-monitoring,saas,identity,CIS 6,PR.AC,Access Control,SaaS Platform Team,Open,2026-05-15,Overdue,Review finding and apply documented remediation.,80
+IAM-001,Dormant privileged account requires review,High,80,identity-access-governance-automation,iam,privileged_access,CIS 6,PR.AC,Access Control,Identity Governance Team,Open,2026-05-19,Overdue,Review finding and apply documented remediation.,80

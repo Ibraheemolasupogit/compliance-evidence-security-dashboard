@@ -54,6 +54,8 @@ Expected outputs include:
 - Unmapped findings exports.
 - Risk score summaries.
 - Remediation tracker exports.
+- Remediation owner workload and SLA status summaries.
+- Overdue and due-soon finding exports.
 - Executive summaries.
 - Technical reports.
 - Compliance evidence packs.

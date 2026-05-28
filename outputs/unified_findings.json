@@ -22,7 +22,7 @@
     "created_at": "2026-05-01",
     "updated_at": "2026-05-01",
     "due_date": "2026-05-15",
-    "sla_status": "not_evaluated",
+    "sla_status": "Overdue",
     "evidence_completeness_score": 80,
     "control_theme": "Identity and Access Management",
     "is_mapped": true
@@ -50,7 +50,7 @@
     "created_at": "2026-05-03",
     "updated_at": "2026-05-03",
     "due_date": "2026-06-02",
-    "sla_status": "not_evaluated",
+    "sla_status": "Due Soon",
     "evidence_completeness_score": 80,
     "control_theme": "Data Platform Access Governance",
     "is_mapped": true
@@ -78,7 +78,7 @@
     "created_at": "2026-05-05",
     "updated_at": "2026-05-05",
     "due_date": "2026-05-19",
-    "sla_status": "not_evaluated",
+    "sla_status": "Overdue",
     "evidence_completeness_score": 80,
     "control_theme": "Privileged Access Management",
     "is_mapped": true

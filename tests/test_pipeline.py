@@ -50,6 +50,11 @@ def test_run_pipeline_writes_unified_outputs(tmp_path):
     control_mapping_summary_csv = tmp_path / "control_mapping_summary.csv"
     control_coverage_summary_csv = tmp_path / "control_coverage_summary.csv"
     unmapped_findings_csv = tmp_path / "unmapped_findings.csv"
+    remediation_tracker_csv = tmp_path / "remediation_tracker.csv"
+    remediation_summary_csv = tmp_path / "remediation_summary.csv"
+    remediation_owner_summary_csv = tmp_path / "remediation_owner_summary.csv"
+    overdue_findings_csv = tmp_path / "overdue_findings.csv"
+    due_soon_findings_csv = tmp_path / "due_soon_findings.csv"
     validation_summary_json = tmp_path / "validation_summary.json"
 
     findings = run_pipeline(
@@ -60,6 +65,11 @@ def test_run_pipeline_writes_unified_outputs(tmp_path):
         control_mapping_summary_csv_path=control_mapping_summary_csv,
         control_coverage_summary_csv_path=control_coverage_summary_csv,
         unmapped_findings_csv_path=unmapped_findings_csv,
+        remediation_tracker_csv_path=remediation_tracker_csv,
+        remediation_summary_csv_path=remediation_summary_csv,
+        remediation_owner_summary_csv_path=remediation_owner_summary_csv,
+        overdue_findings_csv_path=overdue_findings_csv,
+        due_soon_findings_csv_path=due_soon_findings_csv,
         validation_summary_json_path=validation_summary_json,
     )
 
@@ -71,6 +81,11 @@ def test_run_pipeline_writes_unified_outputs(tmp_path):
     assert control_mapping_summary_csv.exists()
     assert control_coverage_summary_csv.exists()
     assert unmapped_findings_csv.exists()
+    assert remediation_tracker_csv.exists()
+    assert remediation_summary_csv.exists()
+    assert remediation_owner_summary_csv.exists()
+    assert overdue_findings_csv.exists()
+    assert due_soon_findings_csv.exists()
     assert validation_summary_json.exists()
 
     json_records = json.loads(output_json.read_text(encoding="utf-8"))
@@ -78,6 +93,9 @@ def test_run_pipeline_writes_unified_outputs(tmp_path):
     control_mapping_summary = pd.read_csv(control_mapping_summary_csv)
     control_coverage_summary = pd.read_csv(control_coverage_summary_csv)
     unmapped_findings = pd.read_csv(unmapped_findings_csv)
+    remediation_tracker = pd.read_csv(remediation_tracker_csv)
+    remediation_summary = pd.read_csv(remediation_summary_csv)
+    remediation_owner_summary = pd.read_csv(remediation_owner_summary_csv)
     validation_summary = json.loads(validation_summary_json.read_text(encoding="utf-8"))
 
     assert len(json_records) == 3
@@ -87,5 +105,8 @@ def test_run_pipeline_writes_unified_outputs(tmp_path):
     assert control_coverage_summary.loc[0, "mapped_findings"] == 3
     assert "finding_id" in unmapped_findings.columns
     assert unmapped_findings.empty
+    assert "sla_status" in remediation_tracker.columns
+    assert "finding_count" in remediation_summary.columns
+    assert "overdue_findings" in remediation_owner_summary.columns
     assert validation_summary["portfolio_risk_summary"]["total_findings"] == 3
     assert validation_summary["raw_findings"]["issue_count"] > 0

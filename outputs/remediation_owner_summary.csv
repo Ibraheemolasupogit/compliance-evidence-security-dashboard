@@ -1,0 +1,4 @@
+remediation_owner,total_findings,open_findings,overdue_findings,due_soon_findings,high_or_critical_findings,average_risk_score,average_evidence_completeness_score
+Data Platform Team,1,1,0,1,0,55.0,80.0
+Identity Governance Team,1,1,1,0,1,80.0,80.0
+SaaS Platform Team,1,1,1,0,1,80.0,80.0

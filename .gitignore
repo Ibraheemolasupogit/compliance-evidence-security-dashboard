@@ -24,6 +24,11 @@ outputs/*
 !outputs/control_mapping_summary.csv
 !outputs/control_coverage_summary.csv
 !outputs/unmapped_findings.csv
+!outputs/remediation_tracker.csv
+!outputs/remediation_summary.csv
+!outputs/remediation_owner_summary.csv
+!outputs/overdue_findings.csv
+!outputs/due_soon_findings.csv
 !outputs/validation_summary.json
 !outputs/sample/
 !outputs/sample/**

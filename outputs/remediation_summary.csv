@@ -1,0 +1,4 @@
+remediation_owner,status,severity,sla_status,finding_count,average_risk_score,max_risk_score,average_evidence_completeness_score
+Data Platform Team,In Progress,Medium,Due Soon,1,55.0,55,80.0
+Identity Governance Team,Open,High,Overdue,1,80.0,80,80.0
+SaaS Platform Team,Open,High,Overdue,1,80.0,80,80.0

@@ -1,3 +1,5 @@
 # Risk Scoring Model
 
-Placeholder for risk scoring inputs, severity weighting, exposure factors, evidence confidence, compensating context, and final priority bands.
+Risk scores are currently derived from standardized severity when an explicit score is missing. The default scores are Critical 95, High 80, Medium 55, Low 25, and Info 5.
+
+Remediation summaries use risk score and severity to highlight high-priority owner workload, especially high and critical findings that remain open, overdue, or due soon.

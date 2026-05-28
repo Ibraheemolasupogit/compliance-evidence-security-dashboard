@@ -24,6 +24,14 @@ from compliance_security_dashboard.normalization.field_mapper import (
 from compliance_security_dashboard.normalization.schema_normalizer import (
     normalize_findings,
 )
+from compliance_security_dashboard.remediation.remediation_tracker import (
+    apply_sla_statuses,
+    build_remediation_owner_summary,
+    build_remediation_summary,
+    build_remediation_tracker,
+    filter_due_soon_findings,
+    filter_overdue_findings,
+)
 from compliance_security_dashboard.reporting.csv_exporter import export_csv
 from compliance_security_dashboard.reporting.json_exporter import export_json
 from compliance_security_dashboard.scoring.evidence_scorer import (
@@ -57,6 +65,13 @@ CONTROL_COVERAGE_SUMMARY_CSV_PATH = (
     PROJECT_ROOT / "outputs" / "control_coverage_summary.csv"
 )
 UNMAPPED_FINDINGS_CSV_PATH = PROJECT_ROOT / "outputs" / "unmapped_findings.csv"
+REMEDIATION_TRACKER_CSV_PATH = PROJECT_ROOT / "outputs" / "remediation_tracker.csv"
+REMEDIATION_SUMMARY_CSV_PATH = PROJECT_ROOT / "outputs" / "remediation_summary.csv"
+REMEDIATION_OWNER_SUMMARY_CSV_PATH = (
+    PROJECT_ROOT / "outputs" / "remediation_owner_summary.csv"
+)
+OVERDUE_FINDINGS_CSV_PATH = PROJECT_ROOT / "outputs" / "overdue_findings.csv"
+DUE_SOON_FINDINGS_CSV_PATH = PROJECT_ROOT / "outputs" / "due_soon_findings.csv"
 VALIDATION_SUMMARY_JSON_PATH = PROJECT_ROOT / "outputs" / "validation_summary.json"
 
 
@@ -85,6 +100,11 @@ def run_pipeline(
     control_mapping_summary_csv_path: str | Path = CONTROL_MAPPING_SUMMARY_CSV_PATH,
     control_coverage_summary_csv_path: str | Path = CONTROL_COVERAGE_SUMMARY_CSV_PATH,
     unmapped_findings_csv_path: str | Path = UNMAPPED_FINDINGS_CSV_PATH,
+    remediation_tracker_csv_path: str | Path = REMEDIATION_TRACKER_CSV_PATH,
+    remediation_summary_csv_path: str | Path = REMEDIATION_SUMMARY_CSV_PATH,
+    remediation_owner_summary_csv_path: str | Path = REMEDIATION_OWNER_SUMMARY_CSV_PATH,
+    overdue_findings_csv_path: str | Path = OVERDUE_FINDINGS_CSV_PATH,
+    due_soon_findings_csv_path: str | Path = DUE_SOON_FINDINGS_CSV_PATH,
     validation_summary_json_path: str | Path = VALIDATION_SUMMARY_JSON_PATH,
     settings_path: str | Path = SETTINGS_PATH,
     risk_scoring_path: str | Path = RISK_SCORING_PATH,
@@ -123,6 +143,7 @@ def run_pipeline(
         category_mappings=category_mappings,
     )
     unified_findings = apply_evidence_scores(unified_findings)
+    unified_findings = apply_sla_statuses(unified_findings)
     normalized_validation = validate_findings(unified_findings, source="normalized")
     risk_summary = build_risk_summary(unified_findings)
     evidence_summary = build_evidence_quality_summary(unified_findings)
@@ -133,6 +154,11 @@ def run_pipeline(
         unmapped_findings,
         columns=unified_findings[0].keys() if unified_findings else None,
     )
+    remediation_tracker = build_remediation_tracker(unified_findings)
+    remediation_summary = build_remediation_summary(unified_findings)
+    remediation_owner_summary = build_remediation_owner_summary(unified_findings)
+    overdue_findings = filter_overdue_findings(unified_findings)
+    due_soon_findings = filter_due_soon_findings(unified_findings)
     portfolio_risk_summary = build_portfolio_risk_summary(unified_findings)
     validation_summary = {
         "raw_findings": merge_validation_results(raw_validation_results),
@@ -147,6 +173,11 @@ def run_pipeline(
     export_csv(control_mapping_summary, control_mapping_summary_csv_path)
     export_csv(control_coverage_summary, control_coverage_summary_csv_path)
     export_csv(unmapped_findings_export, unmapped_findings_csv_path)
+    export_csv(remediation_tracker, remediation_tracker_csv_path)
+    export_csv(remediation_summary, remediation_summary_csv_path)
+    export_csv(remediation_owner_summary, remediation_owner_summary_csv_path)
+    export_csv(overdue_findings, overdue_findings_csv_path)
+    export_csv(due_soon_findings, due_soon_findings_csv_path)
     export_json(validation_summary, validation_summary_json_path)
     return unified_findings
 
@@ -173,6 +204,11 @@ def main() -> None:
     print(f"Wrote {CONTROL_MAPPING_SUMMARY_CSV_PATH}")
     print(f"Wrote {CONTROL_COVERAGE_SUMMARY_CSV_PATH}")
     print(f"Wrote {UNMAPPED_FINDINGS_CSV_PATH}")
+    print(f"Wrote {REMEDIATION_TRACKER_CSV_PATH}")
+    print(f"Wrote {REMEDIATION_SUMMARY_CSV_PATH}")
+    print(f"Wrote {REMEDIATION_OWNER_SUMMARY_CSV_PATH}")
+    print(f"Wrote {OVERDUE_FINDINGS_CSV_PATH}")
+    print(f"Wrote {DUE_SOON_FINDINGS_CSV_PATH}")
     print(f"Wrote {VALIDATION_SUMMARY_JSON_PATH}")
 
 
