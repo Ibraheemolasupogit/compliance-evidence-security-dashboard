@@ -1,12 +1,12 @@
 sla_days:
-  critical: 7
-  high: 14
-  medium: 30
-  low: 90
-  informational: 180
+  Critical: 7
+  High: 14
+  Medium: 30
+  Low: 90
+  Info: 180
 states:
-  - open
-  - in_progress
-  - risk_accepted
-  - remediated
-  - deferred
+  - Open
+  - In Progress
+  - Risk Accepted
+  - Remediated
+  - False Positive

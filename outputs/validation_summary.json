@@ -1,0 +1,151 @@
+{
+  "raw_findings": {
+    "checked_count": 3,
+    "valid_count": 0,
+    "issue_count": 12,
+    "issues": [
+      {
+        "finding_id": "SAAS-001",
+        "field": "recommendation",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "data/input/saas_findings.json"
+      },
+      {
+        "finding_id": "SAAS-001",
+        "field": "resource_name",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "data/input/saas_findings.json"
+      },
+      {
+        "finding_id": "SAAS-001",
+        "field": "resource_type",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "data/input/saas_findings.json"
+      },
+      {
+        "finding_id": "SAAS-001",
+        "field": "risk_score",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "data/input/saas_findings.json"
+      },
+      {
+        "finding_id": "SNOW-001",
+        "field": "recommendation",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "data/input/snowflake_findings.json"
+      },
+      {
+        "finding_id": "SNOW-001",
+        "field": "resource_name",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "data/input/snowflake_findings.json"
+      },
+      {
+        "finding_id": "SNOW-001",
+        "field": "resource_type",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "data/input/snowflake_findings.json"
+      },
+      {
+        "finding_id": "SNOW-001",
+        "field": "risk_score",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "data/input/snowflake_findings.json"
+      },
+      {
+        "finding_id": "IAM-001",
+        "field": "recommendation",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "data/input/iam_findings.json"
+      },
+      {
+        "finding_id": "IAM-001",
+        "field": "resource_name",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "data/input/iam_findings.json"
+      },
+      {
+        "finding_id": "IAM-001",
+        "field": "resource_type",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "data/input/iam_findings.json"
+      },
+      {
+        "finding_id": "IAM-001",
+        "field": "risk_score",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "data/input/iam_findings.json"
+      }
+    ]
+  },
+  "normalized_findings": {
+    "checked_count": 3,
+    "valid_count": 0,
+    "issue_count": 6,
+    "issues": [
+      {
+        "finding_id": "SAAS-001",
+        "field": "resource_name",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "normalized"
+      },
+      {
+        "finding_id": "SAAS-001",
+        "field": "resource_type",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "normalized"
+      },
+      {
+        "finding_id": "SNOW-001",
+        "field": "resource_name",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "normalized"
+      },
+      {
+        "finding_id": "SNOW-001",
+        "field": "resource_type",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "normalized"
+      },
+      {
+        "finding_id": "IAM-001",
+        "field": "resource_name",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "normalized"
+      },
+      {
+        "finding_id": "IAM-001",
+        "field": "resource_type",
+        "issue": "Missing required field.",
+        "severity": "error",
+        "source": "normalized"
+      }
+    ]
+  },
+  "portfolio_risk_summary": {
+    "total_findings": 3,
+    "open_findings": 2,
+    "critical_findings": 0,
+    "high_findings": 2,
+    "average_risk_score": 71.67,
+    "risk_rating": "High",
+    "top_risk_score": 80
+  }
+}

@@ -1,0 +1,4 @@
+source_repo,severity,category,finding_count,average_risk_score,max_risk_score
+identity-access-governance-automation,High,privileged_access,1,80.0,80
+saas-security-posture-monitoring,High,identity,1,80.0,80
+snowflake-data-platform-security-monitoring,Medium,access_governance,1,55.0,55

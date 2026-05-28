@@ -15,14 +15,16 @@ from compliance_security_dashboard.normalization.field_mapper import (
     map_nist_category,
     map_risk_score,
     map_severity,
+    map_status,
 )
+from compliance_security_dashboard.scoring.risk_scorer import ensure_risk_score
 
 DEFAULT_SLA_DAYS = {
-    "critical": 7,
-    "high": 14,
-    "medium": 30,
-    "low": 90,
-    "informational": 180,
+    "Critical": 7,
+    "High": 14,
+    "Medium": 30,
+    "Low": 90,
+    "Info": 180,
 }
 
 
@@ -51,6 +53,14 @@ def normalize_finding(
     )
     active_sla_days = sla_days or DEFAULT_SLA_DAYS
     evidence = first_present(raw_finding, ("evidence", "evidence_summary"))
+    status = map_status(first_present(raw_finding, ("status",), "Open"))
+
+    risk_seed = ensure_risk_score(
+        {
+            "risk_score": raw_finding.get("risk_score"),
+            "severity": severity,
+        }
+    )
 
     return UnifiedFinding(
         finding_id=first_present(raw_finding, ("finding_id", "id"), "UNKNOWN"),
@@ -71,7 +81,7 @@ def normalize_finding(
         resource_id=first_present(raw_finding, ("resource_id", "asset_id"), ""),
         category=category,
         severity=severity,
-        risk_score=int(raw_finding.get("risk_score") or map_risk_score(severity)),
+        risk_score=int(risk_seed.get("risk_score") or map_risk_score(severity)),
         control_mapping=first_present(
             raw_finding,
             ("control_mapping", "control_id"),
@@ -103,7 +113,7 @@ def normalize_finding(
             ("remediation_owner", "owner"),
             "Unassigned",
         ),
-        status=first_present(raw_finding, ("status",), "open"),
+        status=status,
         created_at=created_at,
         updated_at=updated_at,
         due_date=first_present(

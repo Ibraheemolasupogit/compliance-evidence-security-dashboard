@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 
-def export_json(records: list[dict[str, Any]], path: str | Path) -> None:
+def export_json(records: Any, path: str | Path) -> None:
     """Export records to a pretty-printed JSON file."""
     output_path = Path(path)
     output_path.parent.mkdir(parents=True, exist_ok=True)

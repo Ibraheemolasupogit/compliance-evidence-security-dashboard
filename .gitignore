@@ -17,6 +17,11 @@ build/
 !.env.example
 outputs/*
 !outputs/.gitkeep
+!outputs/unified_findings.json
+!outputs/unified_findings.csv
+!outputs/risk_score_summary.csv
+!outputs/evidence_quality_summary.csv
+!outputs/validation_summary.json
 !outputs/sample/
 !outputs/sample/**
 reports/*

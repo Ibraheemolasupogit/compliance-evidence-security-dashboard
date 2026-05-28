@@ -1,0 +1,4 @@
+source_repo,category,finding_count,average_evidence_completeness_score,weak_evidence_count
+identity-access-governance-automation,privileged_access,1,80.0,0
+saas-security-posture-monitoring,identity,1,80.0,0
+snowflake-data-platform-security-monitoring,access_governance,1,80.0,0

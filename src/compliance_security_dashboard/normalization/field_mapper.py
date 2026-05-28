@@ -8,10 +8,33 @@ from typing import Any
 
 
 def map_severity(value: str) -> str:
-    """Normalize severity text."""
-    severity = str(value or "informational").strip().lower()
-    aliases = {"info": "informational", "medium-high": "high"}
-    return aliases.get(severity, severity)
+    """Standardize severity text to the portfolio schema."""
+    severity = str(value or "Info").strip().lower().replace("_", " ")
+    aliases = {
+        "critical": "Critical",
+        "high": "High",
+        "medium": "Medium",
+        "med": "Medium",
+        "low": "Low",
+        "info": "Info",
+        "informational": "Info",
+    }
+    return aliases.get(severity, str(value or "Info").strip())
+
+
+def map_status(value: str) -> str:
+    """Standardize remediation status text to the portfolio schema."""
+    status = str(value or "Open").strip().lower().replace("_", " ")
+    aliases = {
+        "open": "Open",
+        "in progress": "In Progress",
+        "risk accepted": "Risk Accepted",
+        "accepted": "Risk Accepted",
+        "remediated": "Remediated",
+        "closed": "Remediated",
+        "false positive": "False Positive",
+    }
+    return aliases.get(status, str(value or "Open").strip())
 
 
 def first_present(
@@ -54,15 +77,15 @@ def infer_source_repo(source_system: str, source_path: str | Path | None = None)
 
 
 def map_risk_score(severity: str) -> int:
-    """Return a simple baseline risk score from severity."""
+    """Return a default risk score from standardized severity."""
     scores = {
-        "critical": 100,
-        "high": 75,
-        "medium": 50,
-        "low": 25,
-        "informational": 5,
+        "Critical": 95,
+        "High": 80,
+        "Medium": 55,
+        "Low": 25,
+        "Info": 5,
     }
-    return scores.get(severity, 0)
+    return scores.get(map_severity(severity), 5)
 
 
 def calculate_due_date(created_at: str, severity: str, sla_days: dict[str, int]) -> str:
@@ -70,7 +93,11 @@ def calculate_due_date(created_at: str, severity: str, sla_days: dict[str, int])
     if not created_at:
         return ""
     created_date = date.fromisoformat(created_at[:10])
-    days = sla_days.get(severity, sla_days.get("informational", 180))
+    standardized_severity = map_severity(severity)
+    days = sla_days.get(
+        standardized_severity,
+        sla_days.get(standardized_severity.lower(), sla_days.get("Info", 180)),
+    )
     return (created_date + timedelta(days=days)).isoformat()
 
 
