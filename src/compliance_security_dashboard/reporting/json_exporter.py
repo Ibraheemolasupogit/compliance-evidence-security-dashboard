@@ -9,4 +9,6 @@ from typing import Any
 
 def export_json(records: list[dict[str, Any]], path: str | Path) -> None:
     """Export records to a pretty-printed JSON file."""
-    Path(path).write_text(json.dumps(records, indent=2), encoding="utf-8")
+    output_path = Path(path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(records, indent=2), encoding="utf-8")

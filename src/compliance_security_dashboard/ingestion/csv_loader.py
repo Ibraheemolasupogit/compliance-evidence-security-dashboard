@@ -9,4 +9,12 @@ import pandas as pd
 
 def load_csv(path: str | Path) -> pd.DataFrame:
     """Load a CSV file from disk."""
-    return pd.read_csv(path)
+    source_path = Path(path)
+    if not source_path.exists():
+        raise FileNotFoundError(f"CSV input file not found: {source_path}")
+    return pd.read_csv(source_path)
+
+
+def load_csv_records(path: str | Path) -> list[dict[str, object]]:
+    """Load CSV rows as dictionaries for source routing."""
+    return load_csv(path).to_dict(orient="records")
