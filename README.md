@@ -50,6 +50,8 @@ Expected outputs include:
 
 - Unified findings JSON and CSV.
 - Control mapping summaries.
+- Control coverage summaries.
+- Unmapped findings exports.
 - Risk score summaries.
 - Remediation tracker exports.
 - Executive summaries.

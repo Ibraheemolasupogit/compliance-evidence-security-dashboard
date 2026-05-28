@@ -1,0 +1,4 @@
+cis_control,nist_category,iso_domain,category,severity,finding_count,average_risk_score,max_risk_score,open_findings,average_evidence_completeness_score
+CIS 5,PR.AC,Access Control,access_governance,Medium,1,55.0,55,0,80.0
+CIS 6,PR.AC,Access Control,identity,High,1,80.0,80,1,80.0
+CIS 6,PR.AC,Access Control,privileged_access,High,1,80.0,80,1,80.0

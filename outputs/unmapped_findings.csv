@@ -1,0 +1,1 @@
+finding_id,source_system,source_repo,title,description,resource_type,resource_name,resource_id,category,severity,risk_score,control_mapping,cis_control,nist_category,iso_domain,evidence,recommendation,remediation_owner,status,created_at,updated_at,due_date,sla_status,evidence_completeness_score,control_theme,is_mapped

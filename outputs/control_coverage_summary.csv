@@ -1,0 +1,2 @@
+total_findings,mapped_findings,unmapped_findings,mapping_coverage_percent,controls_with_findings,high_or_critical_control_findings,weak_evidence_control_findings
+3,3,0,100.0,3,2,0

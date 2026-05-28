@@ -1,4 +1,4 @@
-control_id,control_name,framework,control_family,evidence_expectation
-CTRL-IAM-001,Administrative MFA Enforcement,CIS,Identity and Access Management,MFA policy evidence and admin user coverage
-CTRL-DATA-002,Privileged Data Platform Access Review,NIST,Access Control,Role assignment review and exception records
-CTRL-IAM-002,Dormant Privileged Account Review,Internal Security Baseline,Privileged Access,Dormant account review and remediation evidence
+control_id,control_name,framework,control_family,cis_control,nist_category,iso_domain,evidence_expectation
+CTRL-IAM-001,Administrative MFA Enforcement,CIS,Identity and Access Management,CIS 6,PR.AC,Access Control,MFA policy evidence and admin user coverage
+CTRL-DATA-002,Privileged Data Platform Access Review,NIST,Access Control,CIS 5,PR.AC,Access Control,Role assignment review and exception records
+CTRL-IAM-002,Dormant Privileged Account Review,Internal Security Baseline,Privileged Access,CIS 6,PR.AC,Access Control,Dormant account review and remediation evidence

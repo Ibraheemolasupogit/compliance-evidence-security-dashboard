@@ -1,3 +1,5 @@
 # Compliance Mapping
 
-Placeholder for mapping normalized findings to internal controls, CIS-style safeguards, NIST-style control families, and audit evidence categories.
+Normalized findings are mapped offline using `data/reference/category_mapping.csv` and `data/reference/controls_reference.csv`.
+
+The current MVP maps by finding category, preserves explicit mappings already present on a finding, and fills missing CIS, NIST, ISO-style, and control theme fields from the reference data. Findings that still have no CIS, NIST, or ISO-style mapping are exported to `outputs/unmapped_findings.csv` for follow-up.

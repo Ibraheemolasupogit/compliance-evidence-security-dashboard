@@ -21,6 +21,9 @@ outputs/*
 !outputs/unified_findings.csv
 !outputs/risk_score_summary.csv
 !outputs/evidence_quality_summary.csv
+!outputs/control_mapping_summary.csv
+!outputs/control_coverage_summary.csv
+!outputs/unmapped_findings.csv
 !outputs/validation_summary.json
 !outputs/sample/
 !outputs/sample/**
