@@ -1,0 +1,4 @@
+finding_id,source_system,title,severity,category,owner,status,observed_at,risk_score,control_id
+SAAS-001,saas,MFA not enforced for admin users,high,identity,SaaS Platform Team,open,2026-05-01,78,CTRL-IAM-001
+SNOW-001,snowflake,Privileged role assigned to inactive user,medium,access_governance,Data Platform Team,in_progress,2026-05-03,55,CTRL-DATA-002
+IAM-001,iam,Dormant privileged account requires review,high,privileged_access,Identity Governance Team,open,2026-05-05,82,CTRL-IAM-002

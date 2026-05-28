@@ -1,0 +1,13 @@
+[
+  {
+    "finding_id": "SNOW-001",
+    "source_system": "snowflake",
+    "title": "Privileged role assigned to inactive user",
+    "severity": "medium",
+    "category": "access_governance",
+    "owner": "Data Platform Team",
+    "status": "in_progress",
+    "observed_at": "2026-05-03",
+    "evidence": "Offline sample finding"
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "finding_id": "IAM-001",
+    "source_system": "iam",
+    "title": "Dormant privileged account requires review",
+    "severity": "high",
+    "category": "privileged_access",
+    "owner": "Identity Governance Team",
+    "status": "open",
+    "observed_at": "2026-05-05"
+  }
+]

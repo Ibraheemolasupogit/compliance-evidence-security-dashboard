@@ -1,0 +1,11 @@
+[
+  {
+    "finding_id": "SNOW-FIXTURE-001",
+    "source_system": "snowflake",
+    "title": "Fixture Snowflake finding",
+    "severity": "medium",
+    "category": "access_governance",
+    "owner": "Data Platform Team",
+    "status": "open"
+  }
+]

@@ -1,0 +1,4 @@
+finding_id,owner,status,severity,sla_due_date,sla_status
+SAAS-001,SaaS Platform Team,open,high,2026-05-15,overdue
+SNOW-001,Data Platform Team,in_progress,medium,2026-06-02,on_track
+IAM-001,Identity Governance Team,open,high,2026-05-19,overdue

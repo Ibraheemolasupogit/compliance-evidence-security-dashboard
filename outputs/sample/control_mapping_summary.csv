@@ -1,0 +1,4 @@
+control_id,control_name,finding_count,open_count
+CTRL-IAM-001,Administrative MFA Enforcement,1,1
+CTRL-DATA-002,Privileged Data Platform Access Review,1,0
+CTRL-IAM-002,Dormant Privileged Account Review,1,1

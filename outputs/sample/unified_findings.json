@@ -1,0 +1,13 @@
+[
+  {
+    "finding_id": "SAAS-001",
+    "source_system": "saas",
+    "title": "MFA not enforced for admin users",
+    "severity": "high",
+    "category": "identity",
+    "owner": "SaaS Platform Team",
+    "status": "open",
+    "risk_score": 78,
+    "control_id": "CTRL-IAM-001"
+  }
+]

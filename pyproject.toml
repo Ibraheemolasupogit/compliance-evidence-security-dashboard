@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "compliance-evidence-security-dashboard"
+version = "0.1.0"
+description = "Offline-first compliance evidence, remediation, risk reporting, and dashboard foundation for security findings."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Portfolio Project" }]
+dependencies = [
+  "pandas",
+  "pydantic",
+  "PyYAML",
+  "Jinja2",
+  "python-dateutil",
+  "streamlit",
+  "plotly",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "black"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

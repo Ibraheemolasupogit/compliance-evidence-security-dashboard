@@ -1,0 +1,11 @@
+[
+  {
+    "finding_id": "SAAS-FIXTURE-001",
+    "source_system": "saas",
+    "title": "Fixture SaaS finding",
+    "severity": "low",
+    "category": "identity",
+    "owner": "SaaS Platform Team",
+    "status": "open"
+  }
+]

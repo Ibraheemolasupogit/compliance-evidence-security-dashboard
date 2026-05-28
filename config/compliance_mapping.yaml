@@ -1,0 +1,7 @@
+frameworks:
+  - CIS
+  - NIST
+  - Internal Security Baseline
+mapping_strategy:
+  default: category_and_control_id
+  fallback: source_system_category

@@ -1,0 +1,10 @@
+sources:
+  saas:
+    description: SaaS security posture findings from offline samples.
+    enabled: true
+  snowflake:
+    description: Data platform security findings from offline samples.
+    enabled: true
+  iam:
+    description: Identity and access governance findings from offline samples.
+    enabled: true

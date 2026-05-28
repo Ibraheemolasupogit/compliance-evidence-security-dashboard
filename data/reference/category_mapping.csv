@@ -1,0 +1,4 @@
+source_category,normalized_category,default_control_id
+identity,identity_and_access,CTRL-IAM-001
+access_governance,access_governance,CTRL-DATA-002
+privileged_access,privileged_access,CTRL-IAM-002

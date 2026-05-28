@@ -1,0 +1,10 @@
+pandas
+pydantic
+PyYAML
+Jinja2
+python-dateutil
+pytest
+ruff
+black
+streamlit
+plotly

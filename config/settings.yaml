@@ -1,0 +1,10 @@
+project:
+  name: compliance-evidence-security-dashboard
+  mode: offline
+paths:
+  input_dir: data/input
+  output_dir: outputs
+  reports_dir: reports
+defaults:
+  timezone: UTC
+  date_format: "%Y-%m-%d"

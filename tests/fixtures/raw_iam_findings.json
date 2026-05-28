@@ -1,0 +1,11 @@
+[
+  {
+    "finding_id": "IAM-FIXTURE-001",
+    "source_system": "iam",
+    "title": "Fixture IAM finding",
+    "severity": "high",
+    "category": "privileged_access",
+    "owner": "Identity Governance Team",
+    "status": "open"
+  }
+]

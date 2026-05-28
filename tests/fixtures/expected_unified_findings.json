@@ -1,0 +1,8 @@
+[
+  {
+    "finding_id": "SAAS-FIXTURE-001",
+    "source_system": "saas",
+    "severity": "low",
+    "control_id": "CTRL-IAM-001"
+  }
+]
