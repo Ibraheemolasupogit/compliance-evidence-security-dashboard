@@ -5,6 +5,7 @@ from typing import Any
 
 import pandas as pd
 import yaml
+from dateutil.tz import gettz
 
 from compliance_security_dashboard.compliance.control_mapper import (
     apply_compliance_mappings,
@@ -34,6 +35,10 @@ from compliance_security_dashboard.remediation.remediation_tracker import (
 )
 from compliance_security_dashboard.reporting.csv_exporter import export_csv
 from compliance_security_dashboard.reporting.json_exporter import export_json
+from compliance_security_dashboard.reporting.markdown_reporter import (
+    build_report_context,
+    generate_all_reports,
+)
 from compliance_security_dashboard.scoring.evidence_scorer import (
     apply_evidence_scores,
     build_evidence_quality_summary,
@@ -73,6 +78,21 @@ REMEDIATION_OWNER_SUMMARY_CSV_PATH = (
 OVERDUE_FINDINGS_CSV_PATH = PROJECT_ROOT / "outputs" / "overdue_findings.csv"
 DUE_SOON_FINDINGS_CSV_PATH = PROJECT_ROOT / "outputs" / "due_soon_findings.csv"
 VALIDATION_SUMMARY_JSON_PATH = PROJECT_ROOT / "outputs" / "validation_summary.json"
+REPORT_TEMPLATE_DIR = (
+    PROJECT_ROOT / "src" / "compliance_security_dashboard" / "reporting" / "templates"
+)
+EXECUTIVE_SUMMARY_REPORT_PATH = PROJECT_ROOT / "reports" / "executive_summary.md"
+TECHNICAL_REPORT_PATH = PROJECT_ROOT / "reports" / "technical_report.md"
+REMEDIATION_PLAN_REPORT_PATH = PROJECT_ROOT / "reports" / "remediation_plan.md"
+COMPLIANCE_EVIDENCE_PACK_REPORT_PATH = (
+    PROJECT_ROOT / "reports" / "compliance_evidence_pack.md"
+)
+REPORT_PATHS = {
+    "executive_summary.md.j2": EXECUTIVE_SUMMARY_REPORT_PATH,
+    "technical_report.md.j2": TECHNICAL_REPORT_PATH,
+    "remediation_plan.md.j2": REMEDIATION_PLAN_REPORT_PATH,
+    "compliance_evidence_pack.md.j2": COMPLIANCE_EVIDENCE_PACK_REPORT_PATH,
+}
 
 
 def load_settings(path: str | Path = SETTINGS_PATH) -> dict[str, Any]:
@@ -106,6 +126,8 @@ def run_pipeline(
     overdue_findings_csv_path: str | Path = OVERDUE_FINDINGS_CSV_PATH,
     due_soon_findings_csv_path: str | Path = DUE_SOON_FINDINGS_CSV_PATH,
     validation_summary_json_path: str | Path = VALIDATION_SUMMARY_JSON_PATH,
+    report_paths: dict[str, str | Path] | None = None,
+    report_template_dir: str | Path = REPORT_TEMPLATE_DIR,
     settings_path: str | Path = SETTINGS_PATH,
     risk_scoring_path: str | Path = RISK_SCORING_PATH,
     compliance_mapping_path: str | Path = COMPLIANCE_MAPPING_PATH,
@@ -165,6 +187,23 @@ def run_pipeline(
         "normalized_findings": normalized_validation.to_dict(),
         "portfolio_risk_summary": portfolio_risk_summary,
     }
+    report_context = build_report_context(
+        project_title=settings.get("project", {}).get(
+            "name",
+            "compliance-evidence-security-dashboard",
+        ),
+        reporting_date=current_reporting_date(settings),
+        unified_findings=unified_findings,
+        risk_summary=risk_summary,
+        evidence_quality_summary=evidence_summary,
+        control_mapping_summary=control_mapping_summary,
+        control_coverage_summary=control_coverage_summary,
+        remediation_tracker=remediation_tracker,
+        remediation_owner_summary=remediation_owner_summary,
+        overdue_findings=overdue_findings,
+        due_soon_findings=due_soon_findings,
+        validation_summary=validation_summary,
+    )
 
     export_json(unified_findings, output_json_path)
     export_csv(unified_findings, output_csv_path)
@@ -179,6 +218,11 @@ def run_pipeline(
     export_csv(overdue_findings, overdue_findings_csv_path)
     export_csv(due_soon_findings, due_soon_findings_csv_path)
     export_json(validation_summary, validation_summary_json_path)
+    generate_all_reports(
+        context=report_context,
+        report_paths=report_paths or REPORT_PATHS,
+        template_dir=report_template_dir,
+    )
     return unified_findings
 
 
@@ -191,6 +235,17 @@ def standardize_values(findings: list[dict[str, Any]]) -> list[dict[str, Any]]:
         updated["status"] = map_status(str(updated.get("status", "Open")))
         standardized.append(updated)
     return standardized
+
+
+def current_reporting_date(settings: dict[str, Any]) -> str:
+    """Return the current report date using configured defaults."""
+    from datetime import datetime
+
+    defaults = settings.get("defaults", {})
+    timezone_name = defaults.get("timezone", "UTC")
+    date_format = defaults.get("date_format", "%Y-%m-%d")
+    timezone = gettz(timezone_name)
+    return datetime.now(tz=timezone).strftime(date_format)
 
 
 def main() -> None:
@@ -210,6 +265,10 @@ def main() -> None:
     print(f"Wrote {OVERDUE_FINDINGS_CSV_PATH}")
     print(f"Wrote {DUE_SOON_FINDINGS_CSV_PATH}")
     print(f"Wrote {VALIDATION_SUMMARY_JSON_PATH}")
+    print(f"Wrote {EXECUTIVE_SUMMARY_REPORT_PATH}")
+    print(f"Wrote {TECHNICAL_REPORT_PATH}")
+    print(f"Wrote {REMEDIATION_PLAN_REPORT_PATH}")
+    print(f"Wrote {COMPLIANCE_EVIDENCE_PACK_REPORT_PATH}")
 
 
 if __name__ == "__main__":

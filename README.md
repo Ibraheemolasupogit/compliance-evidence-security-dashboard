@@ -59,6 +59,7 @@ Expected outputs include:
 - Executive summaries.
 - Technical reports.
 - Compliance evidence packs.
+- Generated Markdown reports for executive, technical, remediation, and compliance audiences.
 - Streamlit dashboard views.
 
 ## Tech Stack

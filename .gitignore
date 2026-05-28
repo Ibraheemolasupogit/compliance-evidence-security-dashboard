@@ -34,5 +34,9 @@ outputs/*
 !outputs/sample/**
 reports/*
 !reports/.gitkeep
+!reports/executive_summary.md
+!reports/technical_report.md
+!reports/remediation_plan.md
+!reports/compliance_evidence_pack.md
 !reports/sample/
 !reports/sample/**

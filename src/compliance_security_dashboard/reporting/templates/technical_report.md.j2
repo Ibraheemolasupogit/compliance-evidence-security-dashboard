@@ -1,3 +1,30 @@
 # Technical Report
 
-Portfolio placeholder for technical finding details and validation notes.
+**Project:** {{ project_title }}
+**Reporting date:** {{ reporting_date }}
+
+## Severity, Category, And Source Breakdown
+
+{{ risk_summary_table }}
+
+## Findings Table
+
+{{ findings_table }}
+
+## Top Technical Risks
+
+{% for finding in top_risks %}
+### {{ finding.finding_id }} - {{ finding.title }}
+
+- Source repo: {{ finding.source_repo }}
+- Source system: {{ finding.source_system }}
+- Category: {{ finding.category }}
+- Severity: {{ finding.severity }}
+- Risk score: {{ finding.risk_score }}
+- Resource: {{ finding.resource_type }} / {{ finding.resource_name }}
+- Status: {{ finding.status }}
+- Owner: {{ finding.remediation_owner }}
+- Recommendation: {{ finding.recommendation }}
+{% else %}
+No technical findings available.
+{% endfor %}

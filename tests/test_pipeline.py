@@ -56,6 +56,13 @@ def test_run_pipeline_writes_unified_outputs(tmp_path):
     overdue_findings_csv = tmp_path / "overdue_findings.csv"
     due_soon_findings_csv = tmp_path / "due_soon_findings.csv"
     validation_summary_json = tmp_path / "validation_summary.json"
+    report_dir = tmp_path / "reports"
+    report_paths = {
+        "executive_summary.md.j2": report_dir / "executive_summary.md",
+        "technical_report.md.j2": report_dir / "technical_report.md",
+        "remediation_plan.md.j2": report_dir / "remediation_plan.md",
+        "compliance_evidence_pack.md.j2": report_dir / "compliance_evidence_pack.md",
+    }
 
     findings = run_pipeline(
         output_json_path=output_json,
@@ -71,6 +78,7 @@ def test_run_pipeline_writes_unified_outputs(tmp_path):
         overdue_findings_csv_path=overdue_findings_csv,
         due_soon_findings_csv_path=due_soon_findings_csv,
         validation_summary_json_path=validation_summary_json,
+        report_paths=report_paths,
     )
 
     assert len(findings) == 3
@@ -87,6 +95,8 @@ def test_run_pipeline_writes_unified_outputs(tmp_path):
     assert overdue_findings_csv.exists()
     assert due_soon_findings_csv.exists()
     assert validation_summary_json.exists()
+    for report_path in report_paths.values():
+        assert report_path.exists()
 
     json_records = json.loads(output_json.read_text(encoding="utf-8"))
     csv_records = pd.read_csv(output_csv)
@@ -110,3 +120,16 @@ def test_run_pipeline_writes_unified_outputs(tmp_path):
     assert "overdue_findings" in remediation_owner_summary.columns
     assert validation_summary["portfolio_risk_summary"]["total_findings"] == 3
     assert validation_summary["raw_findings"]["issue_count"] > 0
+
+    assert "Executive Summary" in report_paths["executive_summary.md.j2"].read_text(
+        encoding="utf-8"
+    )
+    assert "Technical Report" in report_paths["technical_report.md.j2"].read_text(
+        encoding="utf-8"
+    )
+    assert "Remediation Plan" in report_paths["remediation_plan.md.j2"].read_text(
+        encoding="utf-8"
+    )
+    assert "Compliance Evidence Pack" in report_paths[
+        "compliance_evidence_pack.md.j2"
+    ].read_text(encoding="utf-8")

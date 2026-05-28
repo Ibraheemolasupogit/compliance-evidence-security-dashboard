@@ -1,3 +1,37 @@
 # Remediation Plan
 
-Portfolio placeholder for remediation owners, SLAs, and actions.
+**Project:** {{ project_title }}
+**Reporting date:** {{ reporting_date }}
+
+## SLA Status Explanation
+
+`Closed` findings are remediated or false positive. `Overdue` findings are past due and still open. `Due Soon` findings are due within seven days. `Within SLA` findings have more than seven days remaining. `No Due Date` findings need remediation planning.
+
+## Owner Workload Summary
+
+{{ remediation_owner_table }}
+
+## Overdue Findings
+
+{{ overdue_findings_table }}
+
+## Due-Soon Findings
+
+{{ due_soon_findings_table }}
+
+## Recommended Prioritisation
+
+1. Critical overdue findings
+2. High overdue findings
+3. Critical due-soon findings
+4. High due-soon findings
+5. Weak-evidence findings
+6. Remaining open findings
+
+## High And Critical Findings
+
+{% for finding in high_critical_findings %}
+- **{{ finding.finding_id }}:** {{ finding.title }} - {{ finding.sla_status }} - owner: {{ finding.remediation_owner }}
+{% else %}
+- No high or critical findings.
+{% endfor %}

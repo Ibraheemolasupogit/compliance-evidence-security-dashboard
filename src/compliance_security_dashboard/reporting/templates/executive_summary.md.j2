@@ -1,3 +1,39 @@
 # Executive Summary
 
-Portfolio placeholder for an executive-level security risk summary.
+**Project:** {{ project_title }}
+**Reporting date:** {{ reporting_date }}
+
+## Portfolio Risk Snapshot
+
+| Metric | Value |
+| --- | ---: |
+| Total findings | {{ total_findings }} |
+| Open findings | {{ open_findings }} |
+| Critical findings | {{ critical_findings }} |
+| High findings | {{ high_findings }} |
+| Average risk score | {{ average_risk_score }} |
+| Risk rating | {{ risk_rating }} |
+| Top risk score | {{ top_risk_score }} |
+| Overdue findings | {{ overdue_count }} |
+| Due soon findings | {{ due_soon_count }} |
+| Average evidence completeness | {{ average_evidence_completeness_score }}% |
+| Mapping coverage | {{ control_coverage.mapping_coverage_percent }}% |
+
+## Top Risks
+
+{% for finding in top_risks %}
+- **{{ finding.finding_id }}:** {{ finding.title }} ({{ finding.severity }}, score {{ finding.risk_score }}) owned by {{ finding.remediation_owner }}.
+{% else %}
+- No findings available.
+{% endfor %}
+
+## Executive Interpretation
+
+The current portfolio risk rating is **{{ risk_rating }}**. The highest priority work is concentrated in overdue and high-risk findings, with compliance mapping coverage at **{{ control_coverage.mapping_coverage_percent }}%** and average evidence completeness at **{{ average_evidence_completeness_score }}%**.
+
+## Recommended Management Actions
+
+1. Prioritize overdue high-risk findings with named remediation owners.
+2. Review due-soon findings before they breach SLA.
+3. Improve evidence completeness for any weak-evidence findings.
+4. Use mapped controls to communicate risk in CIS/NIST/ISO-style terms.

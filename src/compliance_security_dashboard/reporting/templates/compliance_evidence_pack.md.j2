@@ -1,3 +1,37 @@
 # Compliance Evidence Pack
 
-Portfolio placeholder for control mappings and audit evidence.
+**Project:** {{ project_title }}
+**Reporting date:** {{ reporting_date }}
+
+## Control Coverage Summary
+
+{{ control_coverage_table }}
+
+## Compliance Mapping Summary
+
+{{ control_mapping_table }}
+
+## Evidence Completeness Summary
+
+{{ evidence_summary_table }}
+
+## Unmapped Findings
+
+Unmapped findings: **{{ unmapped_count }}**
+
+{% if unmapped_count == 0 %}
+All current findings have at least one CIS, NIST, or ISO-style mapping.
+{% else %}
+Review unmapped findings and update the offline category/control references.
+{% endif %}
+
+## Audit Evidence Interpretation
+
+This evidence pack is generated from offline sample data and maps findings into CIS/NIST/ISO-style reporting fields for control-owner review. Evidence completeness reflects whether findings include evidence text, resource identifiers, recommendations, control mappings, and remediation ownership.
+
+## Limitations And Assumptions
+
+- This report is generated from offline JSON/CSV samples.
+- No live SaaS, Snowflake, identity, SIEM, cloud, or ticketing systems are queried.
+- Control mappings are based on local reference files and should be reviewed before audit use.
+- Validation issue count across raw and normalized data: {{ validation_issue_count }}.
