@@ -1,108 +1,174 @@
 # Compliance Evidence Security Dashboard
 
-Portfolio repository 4 of 5: a reporting, compliance evidence, remediation, and dashboarding layer for security findings from SaaS, Snowflake/data platform, and identity/access governance monitoring projects.
+Offline compliance evidence, remediation, risk reporting, and dashboarding layer for SaaS, Snowflake/data platform, and identity/access governance security findings.
 
-## What This Project Does
+## Problem Statement
 
-This project is designed to aggregate security findings from prior monitoring systems, normalize them into a common schema, score risk, map findings to compliance controls, track remediation status, and produce stakeholder-ready reports and dashboards.
+Security monitoring creates value only when raw findings become clear risk decisions, control evidence, remediation ownership, and stakeholder-ready reporting. This project demonstrates that final reporting layer: it aggregates findings from security monitoring projects, normalises them, scores risk and evidence quality, maps them to controls, tracks remediation SLAs, generates Markdown reports, and presents the results in a Streamlit dashboard.
 
-The first version is intentionally offline-first. It uses sample JSON and CSV files only. There are no live API integrations, cloud dependencies, credentials, or external system calls.
+## Why This Matters
 
-## Why It Matters
+Data Security Engineer and security reporting roles often sit between technical control monitoring, GRC requirements, remediation delivery, and executive communication. This repo shows how to turn offline security findings into:
 
-Security monitoring only creates value when findings become evidence, decisions, and remediation. Compliance evidence and reporting help teams:
+- compliance evidence and control coverage summaries
+- risk-ranked remediation work
+- overdue and due-soon tracking
+- executive and technical reports
+- dashboard views for multiple audiences
 
-- Demonstrate control coverage for CIS, NIST-style, and internal security baselines.
-- Communicate risk clearly to technical and non-technical stakeholders.
-- Track ownership, SLAs, remediation progress, and evidence quality.
-- Convert raw detections into executive summaries, technical reports, and audit-ready evidence packs.
+## Portfolio Architecture
 
-## Portfolio Context
+This is repo 4 in a 5-repo security engineering portfolio.
 
-This repo follows the first three repositories in the portfolio:
-
-- Repo 1: SaaS security posture monitoring.
-- Repo 2: Snowflake and data platform security monitoring.
-- Repo 3: Identity and access governance automation.
-- Repo 4: Compliance evidence, reporting, remediation, and dashboarding.
-
-Together, these projects demonstrate a security engineering workflow from continuous control monitoring through risk aggregation and executive communication.
-
-## Offline-First MVP
-
-The initial foundation runs from local sample files:
-
-- `data/input/*.json` for offline source findings.
-- `data/sample/*.json` and `data/sample/*.csv` for example normalized data.
-- `data/reference/*.csv` for control, owner, and category mappings.
-- `outputs/sample/*` for expected generated datasets.
-- `reports/sample/*` for example report artifacts.
-
-No Microsoft Graph, Snowflake, Sentinel, Azure, SaaS, or cloud credentials are required.
-
-## Planned Pipeline
+- **SaaS Security Posture Monitor:** produces SaaS configuration and posture findings.
+- **Snowflake Data Security Monitor:** produces data platform access and configuration findings.
+- **Identity & Access Governance Automation:** produces privileged access and lifecycle findings.
+- **Compliance Evidence Security Dashboard:** aggregates those findings into evidence, remediation, reports, and dashboards.
 
 ```text
-ingestion -> normalisation -> validation -> risk scoring -> compliance mapping -> remediation tracking -> reports/dashboard
+Offline source findings
+  ├─ SaaS findings JSON
+  ├─ Snowflake findings JSON
+  └─ IAM findings JSON
+        ↓
+ingestion → normalisation → validation → risk scoring
+        ↓
+compliance mapping → evidence scoring → remediation tracking
+        ↓
+CSV/JSON outputs → Markdown reports → Streamlit dashboard
 ```
 
-Expected outputs include:
+## Capabilities
 
-- Unified findings JSON and CSV.
-- Control mapping summaries.
-- Control coverage summaries.
-- Unmapped findings exports.
-- Risk score summaries.
-- Remediation tracker exports.
-- Remediation owner workload and SLA status summaries.
-- Overdue and due-soon finding exports.
-- Executive summaries.
-- Technical reports.
-- Compliance evidence packs.
-- Generated Markdown reports for executive, technical, remediation, and compliance audiences.
-- Streamlit dashboard views.
+- Loads offline JSON findings from SaaS, Snowflake, and IAM sample sources.
+- Normalises records into a unified finding schema.
+- Validates required fields, severity, status, risk score bounds, and due dates.
+- Standardises severity and remediation status values.
+- Scores risk and evidence completeness.
+- Maps findings to CIS/NIST/ISO-style control fields using offline reference CSVs.
+- Calculates SLA status, overdue findings, due-soon findings, and owner workload.
+- Exports CSV/JSON datasets for reporting and BI-style consumption.
+- Generates Markdown reports for executives, engineers, remediation owners, and GRC.
+- Provides a multi-page Streamlit dashboard backed by generated offline outputs.
+
+## Generated Outputs
+
+Pipeline outputs are written to `outputs/`:
+
+- `unified_findings.json`
+- `unified_findings.csv`
+- `risk_score_summary.csv`
+- `evidence_quality_summary.csv`
+- `control_mapping_summary.csv`
+- `control_coverage_summary.csv`
+- `unmapped_findings.csv`
+- `remediation_tracker.csv`
+- `remediation_summary.csv`
+- `remediation_owner_summary.csv`
+- `overdue_findings.csv`
+- `due_soon_findings.csv`
+- `validation_summary.json`
+
+## Generated Reports
+
+Markdown reports are written to `reports/`:
+
+- `executive_summary.md`
+- `technical_report.md`
+- `remediation_plan.md`
+- `compliance_evidence_pack.md`
+
+## Dashboard Pages
+
+The Streamlit dashboard includes:
+
+- Executive Overview
+- Compliance View
+- Remediation Tracker
+- Technical Findings
+- Evidence Quality
 
 ## Tech Stack
 
 - Python 3.11+
-- pandas
-- pydantic
+- pandas and pydantic
 - PyYAML
 - Jinja2
-- python-dateutil
-- Streamlit
-- Plotly
+- Streamlit and Plotly
 - pytest
-- ruff
-- black
+- ruff and black
 - GitHub Actions
 
-## Run Locally
-
-The full pipeline will be implemented in later tasks. Once implementation begins, the intended local workflow is:
+## Install
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-python -m compliance_security_dashboard.main
-streamlit run dashboard/streamlit_app.py
-pytest
+python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
 ```
 
-The dashboard reads generated files from `outputs/`, so run the pipeline before opening Streamlit.
+## Run The Pipeline
+
+```bash
+PYTHONPATH=src python3 -m compliance_security_dashboard.main
+```
+
+Or:
+
+```bash
+./scripts/run_pipeline.sh
+```
+
+## Run Tests And Checks
+
+```bash
+python3 -m pytest
+python3 -m ruff check .
+python3 -m black --check .
+python3 -m compileall src dashboard scripts
+```
+
+## Run The Dashboard
+
+Generate outputs first, then run:
+
+```bash
+python3 -m streamlit run dashboard/streamlit_app.py
+```
+
+## Example Use Cases
+
+- Show executives the top risks, open findings, and overdue remediation work.
+- Give platform teams a filtered technical findings view.
+- Give GRC and audit teams a control evidence pack with mapping coverage.
+- Track remediation ownership, SLA status, and due-soon findings.
+- Demonstrate risk reporting across SaaS, data platform, and IAM domains.
+
+## Limitations
+
+- Offline sample project only; no live integrations are included.
+- No Microsoft Graph, Snowflake, Sentinel, Azure, SaaS, ticketing, or cloud credentials are required.
+- Control mappings are simplified CIS/NIST/ISO-style examples, not official audit advice.
+- Sample data is intentionally small so the project remains reviewable.
+
+## Future Enhancements
+
+- Add richer source-specific sample findings.
+- Add Power BI-ready exports and schema documentation.
+- Add dashboard screenshots for portfolio presentation.
+- Add optional ticketing export stubs for remediation workflows.
+- Expand controls into a fuller CIS/NIST/ISO reference model.
 
 ## Portfolio Value
 
-This repository is built to show skills relevant to Data Security Engineer, SaaS Security Engineer, Data Platform Security, GRC automation, and risk reporting roles:
+This repo demonstrates skills relevant to Data Security Engineer, SaaS Security, Data Platform Security, GRC automation, and risk reporting roles:
 
-- Translating raw findings into normalized security evidence.
-- Mapping security observations to controls and compliance themes.
-- Prioritizing risk across SaaS, data platform, and IAM domains.
-- Tracking remediation ownership and SLA status.
-- Communicating clearly through dashboards and reports.
-- Designing offline, testable foundations before adding integrations.
-
-## Current Status
-
-Initial production-style project foundation only. Live integrations, full pipeline logic, and advanced dashboarding are intentionally out of scope for this first version.
+- security data modelling
+- evidence generation
+- compliance mapping
+- risk aggregation
+- remediation tracking
+- stakeholder reporting
+- dashboarding
+- offline-first, testable security engineering

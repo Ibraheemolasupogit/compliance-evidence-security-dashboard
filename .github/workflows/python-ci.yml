@@ -25,3 +25,7 @@ jobs:
         run: black --check .
       - name: Tests
         run: pytest
+      - name: Compile Python files
+        run: python -m compileall src dashboard scripts
+      - name: Run offline pipeline
+        run: PYTHONPATH=src python -m compliance_security_dashboard.main
