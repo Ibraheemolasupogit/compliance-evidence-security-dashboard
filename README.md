@@ -90,7 +90,7 @@ streamlit run dashboard/streamlit_app.py
 pytest
 ```
 
-For now, the dashboard placeholder can read `outputs/sample/unified_findings.csv`.
+The dashboard reads generated files from `outputs/`, so run the pipeline before opening Streamlit.
 
 ## Portfolio Value
 
